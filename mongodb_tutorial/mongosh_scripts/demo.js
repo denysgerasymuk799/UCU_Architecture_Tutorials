@@ -114,7 +114,7 @@ db.orders.aggregate([
     { // Select and cast specific columns for lookup
         $project: {
             customer: 1,
-            item_id: 1
+            item_id: "$items_id"
         }
     },
     { // Join items
