@@ -1,6 +1,6 @@
 // ========================= Insert and update queries =========================
-// Insert one records into the Items collection
-db.items.insertOne(
+// Insert one records into the Orders collection
+db.orders.insertOne(
     {
         order_number : 2023171,
         date : ISODate("2023-03-17"),
@@ -41,15 +41,15 @@ db.items.updateMany(
 // Analog of SELECT * FROM items
 db.items.find({});
 
-// Analog of SELECT _id, order_number FROM items
+// Analog of SELECT _id, order_number FROM orders
 db.orders.find({}, {order_number: 1});
 
-// Analog of SELECT order_number FROM items
+// Analog of SELECT order_number FROM orders
 db.orders.find({}, {order_number: 1, _id: 0});
 
 // Analog of the following RDBMS query:
 // SELECT _id, order_number, total_sum, "payment.card_owner"
-// FROM items
+// FROM orders
 // WHERE total_sum > 2400
 db.orders.find({total_sum: {$gt: 2400}}, {order_number: 1, total_sum: 1, "payment.card_owner": 1});
 
