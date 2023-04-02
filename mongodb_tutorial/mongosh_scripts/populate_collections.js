@@ -1,4 +1,4 @@
-// Populate an Items collection
+// Create and populate an Items collection
 db.items.insertMany([
    { category: "Phone", model: "iPhone 6", producer: "Apple", price: 600 },
    { category: "Phone", model: "iPhone 12", producer: "Apple", price: 1000 },
@@ -9,7 +9,7 @@ db.items.insertMany([
    { category: "Laptop", model: "MacBook Pro (M1)", producer: "Apple", price: 3000 }
 ]);
 
-// Populate an Orders collection
+// Create and populate an Orders collection
 db.orders.insertMany([
    {
         order_number : 2023191,

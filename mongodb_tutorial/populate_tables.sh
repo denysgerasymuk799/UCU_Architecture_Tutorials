@@ -1,6 +1,6 @@
 docker run --rm -it --network my-mongo-network \
-    --mount type=bind,source="$(pwd)"/cql_files,target=/cql_files \
+    --mount type=bind,source="$(pwd)"/mongosh_scripts,target=/mongosh_scripts \
     mongo \
-    cqlsh mongo-node1 -f /cql_files/populate_tables.cql
+    mongosh mongo-node1:27017 -f /mongosh_scripts/populate_collections.js
 
 printf 'Collections are created and populated\n'
