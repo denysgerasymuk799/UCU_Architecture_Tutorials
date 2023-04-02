@@ -1,12 +1,12 @@
 // Create and populate an Items collection
 db.items.insertMany([
-   { category: "Phone", model: "iPhone 6", producer: "Apple", price: 600 },
-   { category: "Phone", model: "iPhone 12", producer: "Apple", price: 1000 },
-   { category: "Smart Watch", model: "Apple Watch Series 8", producer: "Apple", price: 500 },
-   { category: "Smart Watch", model: "Galaxy Watch 5", producer: "Samsung", price: 400 },
-   { category: "Smart Watch", model: "Galaxy Watch 4", producer: "Samsung", price: 350 },
-   { category: "Laptop", model: "MacBook Pro (M2)", producer: "Apple", price: 3500 },
-   { category: "Laptop", model: "MacBook Pro (M1)", producer: "Apple", price: 3000 }
+   { item_id: 1, category: "Phone", model: "iPhone 6", producer: "Apple", price: 600 },
+   { item_id: 2, category: "Phone", model: "iPhone 12", producer: "Apple", price: 1000 },
+   { item_id: 3, category: "Smart Watch", model: "Apple Watch Series 8", producer: "Apple", price: 500 },
+   { item_id: 4, category: "Smart Watch", model: "Galaxy Watch 5", producer: "Samsung", price: 400 },
+   { item_id: 5, category: "Smart Watch", model: "Galaxy Watch 4", producer: "Samsung", price: 350 },
+   { item_id: 6, category: "Laptop", model: "MacBook Pro (M2)", producer: "Apple", price: 3500 },
+   { item_id: 7, category: "Laptop", model: "MacBook Pro (M1)", producer: "Apple", price: 3000 }
 ]);
 
 // Create and populate an Orders collection
@@ -25,7 +25,7 @@ db.orders.insertMany([
             card_owner : "Dmytro Pryimak",
             cardId : 12345678
         },
-        items_id : ["640e5b70d147285c7d6a2ee0", "640e5b70d147285c7d6a2ee4"]
+        items_id : [3, 7]
     },
    {
         order_number : 2023192,
@@ -41,7 +41,7 @@ db.orders.insertMany([
             card_owner : "Denys Herasymuk",
             cardId : 87654321
         },
-        items_id : ["640e5b70d147285c7d6a2edf", "640e5b70d147285c7d6a2ee0", "640e5b70d147285c7d6a2ee3"]
+        items_id : [2, 3, 6]
     },
     {
         order_number : 2023181,
@@ -57,7 +57,7 @@ db.orders.insertMany([
             card_owner : "Denys Herasymuk",
             cardId : 18273645
         },
-        items_id : ["640e5b70d147285c7d6a2ee4", "640e5b70d147285c7d6a2ee1"]
+        items_id : [4, 7]
     },
     {
         order_number : 2023172,
@@ -73,6 +73,6 @@ db.orders.insertMany([
             card_owner : "Oles Dobosevych",
             cardId : 76543218
         },
-        items_id : ["640e5b70d147285c7d6a2ee3", "640e5b70d147285c7d6a2edf"]
+        items_id : [2, 6]
     }
 ]);

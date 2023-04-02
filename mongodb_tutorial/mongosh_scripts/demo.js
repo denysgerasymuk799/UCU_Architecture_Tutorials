@@ -15,7 +15,7 @@ db.orders.insertOne(
             card_owner : "Denys Herasymuk",
             cardId : 18273645
         },
-        items_id : ["640e5b70d147285c7d6a2ede"]
+        items_id : [1]
     }
 );
 
@@ -66,3 +66,71 @@ db.items.find({$or: [{model: "Apple Watch Series 8"}, {model: "Galaxy Watch 5"}]
 // ========================= Aggregations =========================
 // Analog of SELECT count(category) FROM items
 db.items.find({ category: "Smart Watch" }).count();
+
+// Analog of the following query:
+// SELECT
+//      "customer.name" AS customer_name,
+//      "customer.surname" AS customer_surname,
+//      SUM(total_sum) AS orders_total_sum,
+//      COUNT(*) AS orders_count
+// FROM orders
+// GROUP BY "customer.name", "customer.surname"
+db.orders.aggregate([
+    {
+        $group: {
+            _id: { customer_name: "$customer.name" , customer_surname: "$customer.surname" },
+           orders_total_sum: { $sum: "$total_sum" },
+           orders_count: { $sum: 1 }
+        }
+    }
+]);
+
+// Analog of the following query:
+// SELECT
+//      "customer.name" AS customer_name,
+//      "customer.surname" AS customer_surname,
+//      MAX(total_sum) AS orders_max_sum
+// FROM orders
+// GROUP BY "customer.name", "customer.surname"
+db.orders.aggregate([
+    {
+        $group: {
+            _id: { customer_name: "$customer.name" , customer_surname: "$customer.surname" },
+           orders_max_sum: { $max: "$total_sum" },
+        }
+    }
+]);
+
+// Explode and join items and orders. After exploding of items_id column,
+// this is an analog of the following query:
+//
+// SELECT ord.customer, it.model, it.price
+// FROM orders AS ord
+// JOIN items AS it ON ord.item_id = it.item_id
+db.orders.aggregate([
+    { // Explode items id
+        $unwind: "$items_id"
+    },
+    { // Select and cast specific columns for lookup
+        $project: {
+            customer: 1,
+            item_id: 1
+        }
+    },
+    { // Join items
+        $lookup: {
+           from: "items",
+           localField: "item_id",
+           foreignField: "item_id",
+           as: "items"
+        }
+    },
+    { // Select specific columns
+        $project: {
+            _id: 0,
+            customer: 1,
+            "items.model": 1,
+            "items.price": 1
+        }
+    }
+]);
